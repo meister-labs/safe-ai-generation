@@ -46,4 +46,13 @@ def generate_image(prompt: str):
             model = MODEL_ID,
         ), None
     except Exception as e:
-        msg
+        msg = str(e)
+
+        if "negative prompt" in msg or "unexpected keyword" in msg:
+            try:
+                return image_client.text_to_image(
+                    prompt=prompt,
+                    model = MODEL_ID,
+                ), None
+            except Exception as e2:
+                return str(e2)  
